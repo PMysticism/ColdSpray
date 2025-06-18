@@ -385,11 +385,13 @@ if ttl_file is not None:
     #if query_results[selected_result_query] != """""":
     #    prologue_text = prologue_text + "?propertyName " + "?propertyValue " + "?propertyUnit" 
 
-    if query_results[selected_result_query] == "Mechanical Properties":
-        prologue_text = prologue_text + "?propertyName " + "?propertyValue " + "?propertyUnit"
+    if selected_result_query != "None":
+        if selected_result_query == "Mechanical Properties":
+            prologue_text = prologue_text + "?propertyName " + "?propertyValue " + "?propertyUnit"
 
-    else:
-        prologue_text = prologue_text + "?featureDescription " + "?featureValue " + "?featureUnit"
+        if selected_result_query == "Microstructure":
+            prologue_text = prologue_text + "?featureDescription " + "?featureValue " + "?featureUnit"
+
 
     title_text = """?paper a cs:ColdSprayPaper ;
          cs:hasMetadata ?metadata.
