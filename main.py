@@ -360,7 +360,7 @@ if ttl_file is not None:
 
 
             }
-        st.write(query_results[selected_result_query])
+        #st.write(query_results[selected_result_query])
         
 
     
