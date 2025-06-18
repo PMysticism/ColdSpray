@@ -2,4 +2,3 @@ streamlit
 SPARQLWrapper
 pandas
 rdflib
-os
