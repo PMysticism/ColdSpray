@@ -208,7 +208,7 @@ if ttl_file is not None:
         
     }
 
-    query_results = {
+    query_results = {"None":"""""",
         "Microstructure":"""
         
             ?paper cs:hasMicrostructureResult ?featureDes .
@@ -327,10 +327,10 @@ if ttl_file is not None:
     selected_preprocessing_query = st.selectbox("Preprocessing", list(query_preprocessing.keys()))
     coldspray_checkbox = st.checkbox("Cold Spray Details", value=False)
     selected_characterization_query = st.selectbox("Characterization", list(query_characterization.keys()))
-    selected_result_query = st.selectbox("Results", ["Microstructure", "Mechanical Properties"])
+    selected_result_query = st.selectbox("Results", ["None", "Microstructure", "Mechanical Properties"])
     if selected_result_query == "Microstructure" or "Mechanical Properties":
         custom_results = st.text_input("Enter Result keyword:")
-        query_results = {
+        query_results = {"None":"""""",
         "Microstructure":f"""
         
             ?paper a cs:ColdSprayPaper ;
