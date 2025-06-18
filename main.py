@@ -328,38 +328,41 @@ if ttl_file is not None:
     coldspray_checkbox = st.checkbox("Cold Spray Details", value=False)
     selected_characterization_query = st.selectbox("Characterization", list(query_characterization.keys()))
     selected_result_query = st.selectbox("Results", ["None", "Microstructure", "Mechanical Properties"])
-    if selected_result_query == "Microstructure" or "Mechanical Properties":
-        custom_results = st.text_input("Enter Result keyword:")
-        query_results = {"None":"""""",
-        "Microstructure":f"""
-        
-            ?paper a cs:ColdSprayPaper ;
-                cs:hasResult ?result.
-            ?result cs:hasMicrostructureResult ?microstructure .
-            ?microstructure cs:featureDescription ?featureDescription .
-            ?mechanicalProperty cs:featureValue ?featureValue.
-            ?mechanicalProperty cs:featureUnit ?featureUnit.
-  
-            FILTER (REGEX(STR(?featureDescription), "{custom_results}", "i"))
+    if selected_result_query != "None":
+        if selected_result_query == "Microstructure" or "Mechanical Properties":
+            custom_results = st.text_input("Enter Result keyword:")
+            query_results = {"None":"""""",
+            "Microstructure":f"""
+            
+                ?paper a cs:ColdSprayPaper ;
+                    cs:hasResult ?result.
+                ?result cs:hasMicrostructureResult ?microstructure .
+                ?microstructure cs:featureDescription ?featureDescription .
+                ?mechanicalProperty cs:featureValue ?featureValue.
+                ?mechanicalProperty cs:featureUnit ?featureUnit.
+      
+                FILTER (REGEX(STR(?featureDescription), "{custom_results}", "i"))
+    
+                        """,
+    
+                    "Mechanical Properties":f"""
+            
+                ?paper a cs:ColdSprayPaper ;
+                    cs:hasResult ?result.
+                ?result cs:hasMechanicalProperty ?mechanicalProperty .
+                ?mechanicalProperty cs:propertyName ?propertyName .
+                ?mechanicalProperty cs:propertyValue ?propertyValue.
+                ?mechanicalProperty cs:propertyUnit ?propertyUnit.
+      
+                FILTER (REGEX(STR(?propertyName), "{custom_results}", "i"))
+    
+                        """,
+    
+    
+    
+                }
 
-                    """,
-
-                "Mechanical Properties":f"""
-        
-            ?paper a cs:ColdSprayPaper ;
-                cs:hasResult ?result.
-            ?result cs:hasMechanicalProperty ?mechanicalProperty .
-            ?mechanicalProperty cs:propertyName ?propertyName .
-            ?mechanicalProperty cs:propertyValue ?propertyValue.
-            ?mechanicalProperty cs:propertyUnit ?propertyUnit.
-  
-            FILTER (REGEX(STR(?propertyName), "{custom_results}", "i"))
-
-                    """,
-
-
-
-            }
+            
         #st.write(query_results[selected_result_query])
         
 
